@@ -32,10 +32,7 @@
 package com.jme3.system;
 
 import com.jme3.audio.AudioRenderer;
-import com.jme3.audio.openal.AL;
-import com.jme3.audio.openal.ALAudioRenderer;
-import com.jme3.audio.openal.ALC;
-import com.jme3.audio.openal.EFX;
+import com.jme3.audio.openal.*;
 import com.jme3.system.JmeContext.Type;
 import com.jme3.texture.Image;
 import com.jme3.texture.image.ColorSpace;
@@ -273,7 +270,7 @@ public class JmeDesktopSystem extends JmeSystemDelegate {
             return null;
         }
 
-        return new ALAudioRenderer(al, alc, efx);
+        return (settings.getAudioRenderer().contains("SOFT-FAIL")) ? new SoftFailALAudioRenderer(al, alc, efx) : new ALAudioRenderer(al, alc, efx);
     }
 
     @Override
